@@ -37,6 +37,10 @@ def main():
         debugger_address = gl.start()
         print(f"GoLogin profile started with debugger address: {debugger_address}")
 
+        # Add a delay to allow the browser to fully initialize
+        print("Waiting for 5 seconds for the browser to initialize...")
+        time.sleep(5)
+
         # Create Chrome options and set the debugger address
         chrome_options = Options()
         chrome_options.add_experimental_option("debuggerAddress", debugger_address)
