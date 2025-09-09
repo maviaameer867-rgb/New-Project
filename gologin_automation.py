@@ -2,6 +2,8 @@ import time
 from gologin import GoLogin
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 # Your GoLogin API token
 API_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmFhNjk1MjI2M2EzZDdkNjU3NjYxY2EiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2NzA4MDYwOGYwZDkzMzYxMzlhZWQ4YTcifQ.UC33raqIjbFMZhO4Gd2IU-9QgdhThJ47bGCeepY1D8w"
@@ -39,10 +41,14 @@ def main():
         chrome_options = Options()
         chrome_options.add_experimental_option("debuggerAddress", debugger_address)
 
+        # Get the Chromium version for the webdriver
+        chromium_version = gl.get_chromium_version()
+
+        # Install the webdriver
+        service = Service(ChromeDriverManager(driver_version=chromium_version).install())
+
         # Connect to the browser using Selenium
-        # The pygologin library downloads the correct version of chromedriver for us,
-        # so we don't need to specify the path to it.
-        driver = webdriver.Chrome(options=chrome_options)
+        driver = webdriver.Chrome(service=service, options=chrome_options)
 
         # Now you can control the browser with Selenium
         print("Navigating to https://gologin.com...")

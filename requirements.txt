@@ -1,0 +1,3 @@
+gologin
+selenium
+webdriver-manager
