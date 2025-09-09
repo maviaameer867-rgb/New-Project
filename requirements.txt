@@ -1,3 +1,1 @@
 gologin
-selenium
-webdriver-manager
